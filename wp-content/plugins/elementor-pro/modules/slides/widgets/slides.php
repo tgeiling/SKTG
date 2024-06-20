@@ -38,6 +38,10 @@ class Slides extends Base_Widget {
 		return [ 'imagesloaded' ];
 	}
 
+	protected function is_dynamic_content(): bool {
+		return false;
+	}
+
 	public static function get_button_sizes() {
 		return [
 			'xs' => esc_html__( 'Extra Small', 'elementor-pro' ),
@@ -279,7 +283,6 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Link', 'elementor-pro' ),
 				'type' => Controls_Manager::URL,
-				'placeholder' => esc_html__( 'https://your-link.com', 'elementor-pro' ),
 				'dynamic' => [
 					'active' => true,
 				],
@@ -1407,9 +1410,9 @@ class Slides extends Base_Widget {
 				$ken_class = ' elementor-ken-burns elementor-ken-burns--' . $slide['zoom_direction'];
 			}
 
-			$slide_html = '<div class="swiper-slide-bg' . $ken_class . '" role="img"></div>' . $slide_html;
+			$slide_html = '<div class="swiper-slide-bg' . esc_attr( $ken_class ) . '" role="img"></div>' . $slide_html;
 
-			$slides[] = '<div class="elementor-repeater-item-' . $slide['_id'] . ' swiper-slide">' . $slide_html . '</div>';
+			$slides[] = '<div class="elementor-repeater-item-' . esc_attr( $slide['_id'] ) . ' swiper-slide">' . $slide_html . '</div>';
 			$slide_count++;
 		}
 
@@ -1472,12 +1475,12 @@ class Slides extends Base_Widget {
 			<div class="elementor-slides-wrapper elementor-main-swiper {{ elementorFrontend.config.swiperClass }}" dir="{{ direction }}" data-animation="{{ settings.content_animation }}">
 				<div class="swiper-wrapper elementor-slides">
 					<# jQuery.each( settings.slides, function( index, slide ) { #>
-						<div class="elementor-repeater-item-{{ slide._id }} swiper-slide">
+						<div class="elementor-repeater-item-{{ _.escape( slide._id ) }} swiper-slide">
 							<#
 							var kenClass = '';
 
 							if ( '' != slide.background_ken_burns ) {
-								kenClass = ' elementor-ken-burns elementor-ken-burns--' + slide.zoom_direction;
+								kenClass = ' elementor-ken-burns elementor-ken-burns--' + _.escape( slide.zoom_direction );
 							}
 							#>
 							<div class="swiper-slide-bg{{ kenClass }}" role="img"></div>

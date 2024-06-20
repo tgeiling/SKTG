@@ -51,6 +51,10 @@ class Gallery extends Base_Widget {
 		return 'eicon-gallery-justified';
 	}
 
+	protected function is_dynamic_content(): bool {
+		return false;
+	}
+
 	public function get_inline_css_depends() {
 		if ( 'multiple' === $this->get_settings_for_display( 'gallery_type' ) ) {
 			return [ 'nav-menu' ];
@@ -1550,7 +1554,7 @@ class Gallery extends Base_Widget {
 						$href = $image_data['media'];
 
 						$this->add_render_attribute( 'gallery_item_' . $unique_index, [
-							'href' => $href,
+							'href' => esc_url( $href ),
 						] );
 
 						if ( Plugin::elementor()->editor->is_edit_mode() ) {

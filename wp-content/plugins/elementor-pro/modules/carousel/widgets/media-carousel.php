@@ -188,7 +188,6 @@ class Media_Carousel extends Base {
 				'dynamic' => [
 					'active' => true,
 				],
-				'placeholder' => esc_html__( 'https://your-link.com', 'elementor-pro' ),
 				'show_external' => 'true',
 				'condition' => [
 					'type' => 'image',
@@ -300,7 +299,7 @@ class Media_Carousel extends Base {
 			if ( 'custom' === $slide['image_link_to_type'] ) {
 				$this->add_link_attributes( $element_key . '_link', $slide['image_link_to'] );
 			} else {
-				$this->add_render_attribute( $element_key . '_link', 'href', $image_link_to );
+				$this->add_render_attribute( $element_key . '_link', 'href', esc_url( $image_link_to ) );
 
 				$this->add_lightbox_data_attributes( $element_key . '_link', $slide['image']['id'], 'yes', $this->get_id() );
 

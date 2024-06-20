@@ -31,6 +31,10 @@ class Video_Playlist extends Base_Widget {
 		return 'eicon-video-playlist';
 	}
 
+	protected function is_dynamic_content(): bool {
+		return false;
+	}
+
 	protected function register_controls() {
 		$start = is_rtl() ? 'right' : 'left';
 		$end = is_rtl() ? 'left' : 'right';
@@ -2075,7 +2079,7 @@ class Video_Playlist extends Base_Widget {
 					case 'hosted':
 						playlistItemObject.type = playlistItem.type;
 						playlistItemObject.videoTitle = playlistItem.title;
-						playlistItemObject.videoHtmlTag = playlistItem.video_html_tag;
+						playlistItemObject.videoHtmlTag = elementor.helpers.validateHTMLTag( playlistItem.video_html_tag );
 
 						if ( playlistItem.youtube_url && 'youtube' === playlistItem.type ) {
 							playlistItemObject.videoUrl = playlistItem.youtube_url;
@@ -2120,7 +2124,7 @@ class Video_Playlist extends Base_Widget {
 					case 'section':
 						playlistItemObject.type = playlistItem.type;
 						playlistItemObject.sectionTitle = playlistItem.title;
-						playlistItemObject.sectionHtmlTag = playlistItem.section_html_tag;
+						playlistItemObject.sectionHtmlTag = elementor.helpers.validateHTMLTag( playlistItem.section_html_tag );
 						playlistItemObject.isInnerTabsVisible = false;
 					break;
 				}
